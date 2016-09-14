@@ -10,8 +10,6 @@ lazy val commonSettings = Seq(
   libraryDependencies ++= Seq(
     "org.scalatest" %% "scalatest" % "3.0.0" % "test"
   ),
-  addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full),
-  resolvers ++= Seq(Resolver.sonatypeRepo("releases")),
   publishMavenStyle := true,
   publishTo := {
     val nexus = "https://oss.sonatype.org/"
