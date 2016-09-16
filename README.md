@@ -113,6 +113,40 @@ implicit val intSource: IdSource[Int] = new IdSource[Int] {
 }
 ```
 
+### Play Binding Example
+
+```scala
+implicit def idBinder[T <: Id : IdFactory] = new PathBindable[T] {
+
+  override def bind(key: String, value: String): Either[String, T] =
+    Try(Id.parse[T](value)).toOption.toRight(s"Could not convert $value into ID")
+
+  override def unbind(key: String, id: T): String =
+    id.toString
+
+}
+```
+
+
+### Play Json Example
+
+```scala
+implicit def idFormat[T <: Id](implicit factory: IdFactory[T], format: Format[T#UID]): Format[T] = new Format[T] {
+  override def writes(id: T): JsValue = format.writes(id.underlying)
+  override def reads(json: JsValue): JsResult[T] = json.validate[T#UID].map(Id.create[T])
+}
+```
+
+
+### Slick Example
+
+The following will create a mapper from any defined type who also has also has a valid `BaseColumnType` in Slick:
+
+```scala
+implicit def uuidMapper[T <: Id : IdFactory : ClassTag](implicit baseColumnType: BaseColumnType[T#UID]) =
+    MappedColumnType.base[T, T#UID](_.underlying, Id.create[T])
+```
+
 
 ## Install
 
