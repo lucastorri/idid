@@ -1,6 +1,6 @@
 # idid
 
-`idid` is a common interface for different Id types. It allows you to 
+`idid` is a common interface for different Id types. It allows you to
 define distinct types for each of your Id types, even though they might
 have the same backing type (`Int`, `Long`, `UUID`, etc).
 
@@ -18,7 +18,7 @@ case class Customer(id: Int, /*...*/)
 case class Product(id: Int, /*...*/)
 ```
 
-And perhaps, at some point, you might have a method that receives 
+And perhaps, at some point, you might have a method that receives
 multiple Ids. Take for example:
 
 ```scala
@@ -26,7 +26,7 @@ def isProductInBasket(customerId: Int, productId: Int) = ???
 ```
 
 And that's when things start to get confusing. Simply swapping your
-parameters might cause a lot of undesired headaches and debugging 
+parameters might cause a lot of undesired headaches and debugging
 sessions. And that's when you start to wonder, *"isn't Scala a typed language? How can I make it differently"*? Wouldn't you like to have different types for different Ids, even though their backing type is the same, and therefore allow the compiler to figure out that something is wrong in your code?
 
 
@@ -57,7 +57,7 @@ def isProductInBasket(customerId: CustomerId, productId: ProductId) = ???
 
 So far, that doesn't look like much. The magic, though, starts when using
 the `Id` object directly.
- 
+
 ```scala
 // Create an Id
 val customerId = Id.create[CustomerId](123)
@@ -83,8 +83,8 @@ def idBinder[T <: Id : IdFactory] = new PathBindable[T] { /*...*/ }
 ```
 
 
-It's import to point out that you can still use your Id class normally. 
-We also advice to put your Id types and their factories on a 
+It's import to point out that you can still use your Id class normally.
+We also advice to put your Id types and their factories on a
 [Package Object](http://www.scala-lang.org/docu/files/packageobjects/packageobjects.html),
 so can be accessed more easily.
 
@@ -123,6 +123,11 @@ resolvers += Resolver.sonatypeRepo("public")
 
 libraryDependencies += "com.unstablebuild" %% "idid" % "0.1.0"
 ```
+
+
+## Contributors
+
+Special thanks to [Christian Wilhelm](https://github.com/hcwilhelm) for the ideas behind this project.
 
 
 ## Release
