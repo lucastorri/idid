@@ -1,11 +1,11 @@
 lazy val commonSettings = Seq(
   version := "0.1.0",
-  scalaVersion := "2.11.8",
+  scalaVersion := "2.12.0",
+  crossScalaVersions := Seq("2.11.8", "2.12.0"),
   organization := "com.unstablebuild",
   organizationName := "unstablebuild.com",
   homepage := Some(url("https://github.com/lucastorri/settler")),
   organizationHomepage := Some(url("http://unstablebuild.com")),
-  crossScalaVersions := Seq(scalaVersion.value),
   licenses := Seq("MIT License" -> url("https://opensource.org/licenses/MIT")),
   libraryDependencies ++= Seq(
     "org.scalatest" %% "scalatest" % "3.0.0" % "test"
