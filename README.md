@@ -113,7 +113,16 @@ implicit val intSource: IdSource[Int] = new IdSource[Int] {
 }
 ```
 
-### Play Binding Example
+### Integrating
+
+#### Comparator
+
+```scala
+implicit def idOrdering[T <: Id](implicit ordering: Ordering[T#UID]): Comparator[T] =
+    Ordering.by[T, T#UID](_.underlying)
+```
+
+#### Play Path Binding
 
 ```scala
 implicit def idBinder[T <: Id : IdFactory] = new PathBindable[T] {
@@ -128,7 +137,7 @@ implicit def idBinder[T <: Id : IdFactory] = new PathBindable[T] {
 ```
 
 
-### Play Json Example
+#### Play Json Format
 
 ```scala
 implicit def idFormat[T <: Id](implicit factory: IdFactory[T], format: Format[T#UID]): Format[T] = new Format[T] {
@@ -138,7 +147,7 @@ implicit def idFormat[T <: Id](implicit factory: IdFactory[T], format: Format[T#
 ```
 
 
-### Slick Example
+#### Slick Mapper
 
 The following will create a mapper from any defined type who also has also has a valid `BaseColumnType` in Slick:
 
