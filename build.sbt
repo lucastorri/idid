@@ -1,5 +1,5 @@
 lazy val commonSettings = Seq(
-  version := "0.1.0",
+  version := "0.2.0",
   scalaVersion := "2.12.0",
   crossScalaVersions := Seq("2.11.8", "2.12.0"),
   organization := "com.unstablebuild",

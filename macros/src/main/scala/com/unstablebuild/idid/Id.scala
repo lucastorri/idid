@@ -1,6 +1,7 @@
 package com.unstablebuild.idid
 
-import com.unstablebuild.idid.factory.IdFactory
+import com.unstablebuild.idid.factory.{AutoIdFactory, IdFactory}
+
 import scala.language.experimental.macros
 
 trait Id {
@@ -20,22 +21,7 @@ trait Id {
 
 }
 
-object Id {
-
-  def create[T <: Id : IdFactory](uid: T#UID): T =
-    implicitly[IdFactory[T]].create(uid)
-
-  def empty[T <: Id : IdFactory]: T =
-    implicitly[IdFactory[T]].empty
-
-  def parse[T <: Id : IdFactory](str: String): T =
-    implicitly[IdFactory[T]].parse(str)
-
-  def random[T <: Id : IdFactory]: T =
-    implicitly[IdFactory[T]].random
-
-  def value[T <: Id : IdFactory](id: T): T#UID =
-    id.underlying
+object Id extends IdFunctions {
 
   def factory[T <: Id]: IdFactory[T] =
     macro Macros.factoryImpl[T]

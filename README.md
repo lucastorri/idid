@@ -89,6 +89,29 @@ We also advice to put your Id types and their factories on a
 so can be accessed more easily.
 
 
+### Auto Generated Factories
+
+Instead of declaring a companion variable for each of your Id classes, one can instead use the implicit factory generator provided by `com.unstablebuild.idid.factory.AutoIdFactory` or the `com.unstablebuild.idid.auto` package. For instance:
+
+```scala
+object MyIds extends AutoIdFactory {
+  case class MyId(underlying: Int) extends TypedId[Int]
+}
+
+import MyIds._
+val id = Id.random[MyId]
+```
+
+or 
+
+```scala
+case class MyId(underlying: Int) extends TypedId[Int]
+  
+import com.unstablebuild.idid.auto._
+val id = Id.random[MyId]
+```
+
+
 ### Sources
 
 Default values for the underlying Id types, how to parse them, or how
@@ -128,6 +151,7 @@ implicit def idOrdering[T <: Id](implicit ordering: Ordering[T#UID]): Comparator
 implicit def idBinder[T <: Id : IdFactory] = new PathBindable[T] {
 
   override def bind(key: String, value: String): Either[String, T] =
+
     Try(Id.parse[T](value)).toOption.toRight(s"Could not convert $value into ID")
 
   override def unbind(key: String, id: T): String =
@@ -164,7 +188,7 @@ To use it with [SBT](http://www.scala-sbt.org/), add the following to your `buil
 ```scala
 resolvers += Resolver.sonatypeRepo("public")
 
-libraryDependencies += "com.unstablebuild" %% "idid" % "0.1.0"
+libraryDependencies += "com.unstablebuild" %% "idid" % "0.2.0"
 ```
 
 
@@ -176,7 +200,7 @@ Special thanks to [Christian Wilhelm](https://github.com/hcwilhelm) for the idea
 ## Release
 
 ```bash
-./sbt test macros/test
-./sbt publishSigned macros/publishSigned
+./sbt +test +macros/test
+./sbt +publishSigned +macros/publishSigned
 ./sbt sonatypeReleaseAll
 ```
