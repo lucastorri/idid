@@ -4,7 +4,7 @@ lazy val commonSettings = Seq(
   crossScalaVersions := Seq("2.11.8", "2.12.0"),
   organization := "com.unstablebuild",
   organizationName := "unstablebuild.com",
-  homepage := Some(url("https://github.com/lucastorri/settler")),
+  homepage := Some(url("https://github.com/lucastorri/idid")),
   organizationHomepage := Some(url("http://unstablebuild.com")),
   licenses := Seq("MIT License" -> url("https://opensource.org/licenses/MIT")),
   libraryDependencies ++= Seq(
@@ -20,8 +20,8 @@ lazy val commonSettings = Seq(
   pomIncludeRepository := (_ => false),
   pomExtra :=
     <scm>
-      <url>git@github.com:lucastorri/settler.git</url>
-      <connection>scm:git:git@github.com:lucastorri/settler.git</connection>
+      <url>git@github.com:lucastorri/idid.git</url>
+      <connection>scm:git:git@github.com:lucastorri/idid.git</connection>
     </scm>
     <developers>
       <developer>
