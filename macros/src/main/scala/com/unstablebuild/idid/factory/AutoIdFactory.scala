@@ -6,6 +6,6 @@ import scala.language.experimental.macros
 
 trait AutoIdFactory {
 
-  implicit def factory[T <: Id]: IdFactory[T] = macro Macros.factoryImpl[T]
+  implicit def idFactory[T <: Id]: IdFactory[T] = macro Macros.factoryImpl[T]
 
 }
