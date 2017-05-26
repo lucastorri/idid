@@ -43,10 +43,10 @@ The example above could be written as the following:
 import com.unstablebuild.idid._
 
 case class CustomerId(underlying: Int) extends TypedId[Int]
-val customerIdFactory = Id.factory[CustomerId]
+implicit val customerIdFactory = Id.factory[CustomerId]
 
 case class ProductId(underlying: Int) extends TypedId[Int]
-val customerIdFactory = Id.factory[ProductId]
+implicit val customerIdFactory = Id.factory[ProductId]
 
 case class Customer(id: CustomerId, /*...*/)
 case class Product(id: ProductId, /*...*/)
@@ -86,7 +86,7 @@ def idBinder[T <: Id : IdFactory] = new PathBindable[T] { /*...*/ }
 It's import to point out that you can still use your Id class normally.
 We also advice to put your Id types and their factories on a
 [Package Object](http://www.scala-lang.org/docu/files/packageobjects/packageobjects.html),
-so can be accessed more easily.
+so they can be accessed more easily.
 
 
 ### Auto Generated Factories
